@@ -1,10 +1,11 @@
 {
   "name": "frontend",
   "version": "0.0.0",
-  "scripts": {
+"scripts": {
   "ng": "ng",
   "build": "ng build --configuration production",
-  "start": "http-server ./dist/frontend/browser/index.csr.html -p 8080 -c-1",
+  "postbuild": "mv ./dist/frontend/browser/index.csr.html ./dist/frontend/browser/index.html",
+  "start": "http-server ./dist/frontend/browser -p 8080 -c-1",
   "watch": "ng build --watch --configuration development",
   "test": "ng test",
   "serve:ssr:frontend": "node dist/frontend/server/server.mjs"

@@ -67,7 +67,12 @@ export const routes: Routes = [
     canActivate: [AuthGuard], 
     data: { roles: [3] } 
   },
-
+  { 
+    path: 'postergar', 
+    component: PermisoPostergacionComponent, 
+    canActivate: [AuthGuard], 
+    data: { roles: [3] } 
+  },
   // Rutas generales
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },

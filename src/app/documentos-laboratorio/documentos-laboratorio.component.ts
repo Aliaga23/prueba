@@ -5,7 +5,6 @@ import { DocumentosLaboratorioService } from '../services/documentos-laboratorio
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-
 @Component({
   selector: 'app-documentos-laboratorio',
   templateUrl: './documentos-laboratorio.component.html',
@@ -38,21 +37,28 @@ export class DocumentosLaboratorioComponent implements OnInit {
     });
   }
 
-  createDocumento(fileInputEvent: any): void {
-    if (this.selectedLaboratorioId && fileInputEvent.target.files.length > 0) {
-      const file = fileInputEvent.target.files[0];
+  createDocumento(): void {
+    if (this.selectedLaboratorioId) {
+      // Asigna el laboratorio seleccionado y la fecha actual
       this.newDocumento.laboratorioId = this.selectedLaboratorioId;
-      this.newDocumento.nombreArchivo = file.name;
-      this.newDocumento.tipoDocumento = file.type;
       this.newDocumento.fechaRealizacion = this.fechaHoy;
 
-      // Aquí se debería subir el archivo y guardar la URL en ubicacionArchivo
-      // Suponiendo que la URL está directamente disponible después de la subida:
-      this.newDocumento.ubicacionArchivo = 'URL_DEL_ARCHIVO_SUBIDO';
-
+      // Llama al servicio para crear el documento
       this.documentosService.createDocumento(this.newDocumento).subscribe(() => {
-        // Resetear formulario o mostrar mensaje de éxito
+        // Limpia el formulario después de guardar el documento
+        this.clearForm();
       });
     }
+  }
+
+  clearForm(): void {
+    this.newDocumento = {
+      laboratorioId: 0,
+      nombreArchivo: '',
+      tipoDocumento: '',
+      ubicacionArchivo: '',
+      fechaRealizacion: this.fechaHoy
+    };
+    this.selectedLaboratorioId = null;
   }
 }

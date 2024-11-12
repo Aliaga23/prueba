@@ -19,10 +19,7 @@ export class SidebarComponent {
   laboratorioOpen = false;
   constructor(private router: Router) {}
 
-  toggleSidebar() {
-    this.isCollapsed = !this.isCollapsed;
-  }
-
+ 
   isActive(route: string): boolean {
     return this.router.url === route;
   }

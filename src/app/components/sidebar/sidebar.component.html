@@ -1,159 +1,150 @@
-<div  class="h-screen bg-gray-50 shadow-md flex flex-col items-start transition-width duration-300">
+<div class="h-screen bg-gray-50 shadow-md flex flex-col transition-all duration-300"
+  [ngClass]="{ 'w-64': !isCollapsed, 'w-20': isCollapsed }">
   
-  <!-- Logo (siempre visible) -->
-  <div class="p-6 text-blue-600 font-extrabold text-3xl flex items-center space-x-3 w-full">
-    <i class="fas fa-clinic-medical text-blue-600 text-4xl"></i>
-    <span  class="ml-2">SSVS</span>
+  <!-- Logo y Botón de Colapso/Expandir -->
+  <div class="flex items-center justify-between p-6">
+    <!-- Logo -->
+    <div class="flex items-center text-blue-600 font-extrabold text-3xl space-x-3">
+      <i class="fas fa-clinic-medical text-4xl"></i>
+      <span *ngIf="!isCollapsed">SSVS</span>
+    </div>
+    <!-- Botón de Colapso/Expandir -->
+    <button (click)="isCollapsed = !isCollapsed" class="text-gray-600 focus:outline-none">
+      <i class="fas" [class.fa-angle-left]="!isCollapsed" [class.fa-angle-right]="isCollapsed"></i>
+    </button>
   </div>
 
-  <!-- Botón de Colapso/Expandir (debajo del logo) -->
-  <button  class=" mb-0  text-gray-600  rounded-full transition-all">
-  </button>
-
   <!-- Menú de Navegación -->
-  <nav class="flex flex-col w-full flex-grow space-y-4">
+  <nav class="flex flex-col flex-grow space-y-4">
     
     <!-- Administración -->
     <div>
-      <div (click)="adminOpen = !adminOpen" class="sidebar-section-header flex items-center p-4 cursor-pointer text-gray-500 hover:text-blue-600 font-semibold text-lg">
-        <i class="fas fa-user-cog mr-4 text-gray-500"></i>
+      <div (click)="adminOpen = !adminOpen"
+        class="sidebar-section-header flex items-center p-4 cursor-pointer text-gray-500 hover:text-blue-600 font-semibold text-lg">
+        <i class="fas fa-user-cog mr-4"></i>
         <span *ngIf="!isCollapsed">Administración</span>
         <i class="fas ml-auto" [class.fa-chevron-down]="adminOpen" [class.fa-chevron-right]="!adminOpen"></i>
       </div>
       <div *ngIf="adminOpen && !isCollapsed" class="pl-6 space-y-2">
         <a routerLink="/admin/roles" class="sidebar-link">
-          <i class="fas fa-user-shield mr-3"></i>
-          <span>Roles</span>
+          <i class="fas fa-user-shield mr-3"></i> Roles
         </a>
         <a routerLink="/admin/users" class="sidebar-link">
-          <i class="fas fa-users mr-3"></i>
-          <span>Usuarios</span>
+          <i class="fas fa-users mr-3"></i> Usuarios
         </a>
         <a routerLink="/admin/change-password" class="sidebar-link">
-          <i class="fas fa-key mr-3"></i>
-          <span>Cambiar Contraseña</span>
+          <i class="fas fa-key mr-3"></i> Cambiar Contraseña
         </a>
         <a routerLink="/admin/permisos" class="sidebar-link">
-          <i class="fas fa-unlock-alt mr-3"></i>
-          <span>Permisos</span>
+          <i class="fas fa-unlock-alt mr-3"></i> Permisos
         </a>
       </div>
     </div>
 
     <!-- Pacientes y Médicos -->
     <div>
-      <div (click)="pacientesOpen = !pacientesOpen" class="sidebar-section-header flex items-center p-4 cursor-pointer text-gray-500 hover:text-blue-600 font-semibold text-lg">
-        <i class="fas fa-user-injured mr-4 text-gray-500"></i>
+      <div (click)="pacientesOpen = !pacientesOpen"
+        class="sidebar-section-header flex items-center p-4 cursor-pointer text-gray-500 hover:text-blue-600 font-semibold text-lg">
+        <i class="fas fa-user-injured mr-4"></i>
         <span *ngIf="!isCollapsed">Pacientes y Médicos</span>
         <i class="fas ml-auto" [class.fa-chevron-down]="pacientesOpen" [class.fa-chevron-right]="!pacientesOpen"></i>
       </div>
       <div *ngIf="pacientesOpen && !isCollapsed" class="pl-6 space-y-2">
         <a routerLink="/admin/pacientes" class="sidebar-link">
-          <i class="fas fa-user-injured mr-3"></i>
-          <span>Pacientes</span>
+          <i class="fas fa-user-injured mr-3"></i> Pacientes
         </a>
         <a routerLink="/admin/medicos" class="sidebar-link">
-          <i class="fas fa-user-md mr-3"></i>
-          <span>Médicos</span>
+          <i class="fas fa-user-md mr-3"></i> Médicos
         </a>
         <a routerLink="/admin/especialidades" class="sidebar-link">
-          <i class="fas fa-stethoscope mr-3"></i>
-          <span>Especialidades</span>
+          <i class="fas fa-stethoscope mr-3"></i> Especialidades
         </a>
         <a routerLink="/admin/asociar-especialidad-medico" class="sidebar-link">
-          <i class="fas fa-user-tag mr-3"></i>
-          <span>Asignar Especialidad</span>
+          <i class="fas fa-user-tag mr-3"></i> Asignar Especialidad
         </a>
       </div>
     </div>
 
     <!-- Horarios y Cupos -->
     <div>
-      <div (click)="horariosOpen = !horariosOpen" class="sidebar-section-header flex items-center p-4 cursor-pointer text-gray-500 hover:text-blue-600 font-semibold text-lg">
-        <i class="fas fa-clock mr-4 text-gray-500"></i>
+      <div (click)="horariosOpen = !horariosOpen"
+        class="sidebar-section-header flex items-center p-4 cursor-pointer text-gray-500 hover:text-blue-600 font-semibold text-lg">
+        <i class="fas fa-clock mr-4"></i>
         <span *ngIf="!isCollapsed">Horarios y Cupos</span>
         <i class="fas ml-auto" [class.fa-chevron-down]="horariosOpen" [class.fa-chevron-right]="!horariosOpen"></i>
       </div>
       <div *ngIf="horariosOpen && !isCollapsed" class="pl-6 space-y-2">
         <a routerLink="/admin/horario" class="sidebar-link">
-          <i class="fas fa-clock mr-3"></i>
-          <span>Horarios</span>
+          <i class="fas fa-clock mr-3"></i> Horarios
         </a>
         <a routerLink="/admin/asignar" class="sidebar-link">
-          <i class="fas fa-user-clock mr-3"></i>
-          <span>Asignar Horario</span>
+          <i class="fas fa-user-clock mr-3"></i> Asignar Horario
         </a>
         <a routerLink="/admin/cupo" class="sidebar-link">
-          <i class="fas fa-calendar-check mr-3"></i>
-          <span>Cupos</span>
+          <i class="fas fa-calendar-check mr-3"></i> Cupos
         </a>
       </div>
     </div>
 
     <!-- Reservas y Consultas -->
     <div>
-      <div (click)="reservasOpen = !reservasOpen" class="sidebar-section-header flex items-center p-4 cursor-pointer text-gray-500 hover:text-blue-600 font-semibold text-lg">
-        <i class="fas fa-calendar-alt mr-4 text-gray-500"></i>
+      <div (click)="reservasOpen = !reservasOpen"
+        class="sidebar-section-header flex items-center p-4 cursor-pointer text-gray-500 hover:text-blue-600 font-semibold text-lg">
+        <i class="fas fa-calendar-alt mr-4"></i>
         <span *ngIf="!isCollapsed">Reservas y Consultas</span>
         <i class="fas ml-auto" [class.fa-chevron-down]="reservasOpen" [class.fa-chevron-right]="!reservasOpen"></i>
       </div>
       <div *ngIf="reservasOpen && !isCollapsed" class="pl-6 space-y-2">
         <a routerLink="/admin/reserva" class="sidebar-link">
-          <i class="fas fa-calendar-alt mr-3"></i>
-          <span>Reservas</span>
+          <i class="fas fa-calendar-alt mr-3"></i> Reservas
         </a>
         <a routerLink="/admin/consulta" class="sidebar-link">
-          <i class="fas fa-notes-medical mr-3"></i>
-          <span>Consultas Médicas</span>
+          <i class="fas fa-notes-medical mr-3"></i> Consultas Médicas
         </a>
         <a routerLink="/admin/postergacion" class="sidebar-link">
-          <i class="fas fa-calendar-times mr-3"></i>
-          <span>Postergación</span>
+          <i class="fas fa-calendar-times mr-3"></i> Postergación
         </a>
       </div>
     </div>
 
     <!-- Medicamentos y Recetas -->
     <div>
-      <div (click)="medicamentosOpen = !medicamentosOpen" class="sidebar-section-header flex items-center p-4 cursor-pointer text-gray-500 hover:text-blue-600 font-semibold text-lg">
-        <i class="fas fa-capsules mr-4 text-gray-500"></i>
+      <div (click)="medicamentosOpen = !medicamentosOpen"
+        class="sidebar-section-header flex items-center p-4 cursor-pointer text-gray-500 hover:text-blue-600 font-semibold text-lg">
+        <i class="fas fa-capsules mr-4"></i>
         <span *ngIf="!isCollapsed">Medicamentos y Recetas</span>
         <i class="fas ml-auto" [class.fa-chevron-down]="medicamentosOpen" [class.fa-chevron-right]="!medicamentosOpen"></i>
       </div>
       <div *ngIf="medicamentosOpen && !isCollapsed" class="pl-6 space-y-2">
         <a routerLink="/admin/medicamento" class="sidebar-link">
-          <i class="fas fa-capsules mr-3"></i>
-          <span>Medicamentos</span>
+          <i class="fas fa-capsules mr-3"></i> Medicamentos
         </a>
-       
       </div>
     </div>
 
     <!-- Laboratorio e Historias Clínicas -->
     <div>
-      <div (click)="laboratorioOpen = !laboratorioOpen" class="sidebar-section-header flex items-center p-4 cursor-pointer text-gray-500 hover:text-blue-600 font-semibold text-lg">
-        <i class="fas fa-vials mr-4 text-gray-500"></i>
+      <div (click)="laboratorioOpen = !laboratorioOpen"
+        class="sidebar-section-header flex items-center p-4 cursor-pointer text-gray-500 hover:text-blue-600 font-semibold text-lg">
+        <i class="fas fa-vials mr-4"></i>
         <span *ngIf="!isCollapsed">Laboratorio e Historias Clínicas</span>
         <i class="fas ml-auto" [class.fa-chevron-down]="laboratorioOpen" [class.fa-chevron-right]="!laboratorioOpen"></i>
       </div>
       <div *ngIf="laboratorioOpen && !isCollapsed" class="pl-6 space-y-2">
-    
         <a routerLink="/admin/docu-laboratorio" class="sidebar-link">
-          <i class="fas fa-file-medical mr-3"></i>
-          <span>Documentos Laboratorio</span>
+          <i class="fas fa-file-medical mr-3"></i> Documentos Laboratorio
         </a>
         <a routerLink="/admin/historial" class="sidebar-link">
-          <i class="fas fa-book-medical mr-3"></i>
-          <span>Historias Clínicas</span>
+          <i class="fas fa-book-medical mr-3"></i> Historias Clínicas
         </a>
-     
       </div>
     </div>
   </nav>
 
   <!-- Logout en la Parte Inferior -->
-  <div class="flex flex-col items-center w-full p-6">
-    <a routerLink="/logout" class="flex items-center text-gray-600 hover:text-red-600 w-full justify-center" [class.justify-start]="!isCollapsed">
+  <div class="flex flex-col items-center w-full p-6 mt-auto">
+    <a routerLink="/logout"
+      class="flex items-center text-gray-600 hover:text-red-600 w-full justify-center" [class.justify-start]="!isCollapsed">
       <i class="fas fa-sign-out-alt" [class.text-lg]="!isCollapsed" [class.text-2xl]="isCollapsed"></i>
       <span *ngIf="!isCollapsed" class="ml-3">Logout</span>
     </a>

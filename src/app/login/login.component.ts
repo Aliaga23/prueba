@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service'; // Importa el servicio de autenticación
+import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -26,9 +26,15 @@ export class LoginComponent {
         // Decodifica el token para obtener toda la información
         const userInfo = this.authService.getUserFromToken();
         console.log('Información del usuario desde el token:', userInfo);
-        
-        // Redirige al usuario a la página de administración
-        this.router.navigate(['/admin']);
+
+        // Redirige según el rol del usuario
+        if (userInfo.rolId === 1) {
+          this.router.navigate(['/admin/roles']);
+        } else if (userInfo.rolId === 3) {
+          this.router.navigate(['/consulta']);
+        } else {
+          alert("Rol no autorizado.");
+        }
       },
       (error) => {
         alert("Credenciales inválidas. Inténtalo de nuevo.");

@@ -1,27 +1,43 @@
 // src/app/guards/auth.guard.ts
+
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { CanActivate, Router, UrlTree, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
+
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot): boolean {
-    const user = this.authService.getUserFromToken(); // Decodifica el token y obtiene el objeto de usuario
-    const rolId = user?.rolId; // Accede al rolId del usuario si existe
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    const allowedRoles = [1, 3]; // Solo permitir acceso a roles 1 y 3
+    const user = this.authService.getUserFromToken();
 
-    console.log(`User Role ID: ${rolId}`); // Imprime el rolId para depuración
+    if (user) {
+      if (allowedRoles.includes(user.rolId)) {
+        // Usuario autenticado y tiene uno de los roles permitidos (1 o 3)
+        const requiredRoles = route.data['roles'] as Array<number>;
 
-    // Verifica si el rol del usuario está en la lista de roles permitidos de la ruta
-    if (route.data['roles'] && route.data['roles'].includes(rolId)) {
-      return true; // Permite el acceso si el rol es válido
+        // Verifica si el rol del usuario coincide con el rol requerido para la ruta actual
+        if (requiredRoles && requiredRoles.includes(user.rolId)) {
+          return true;
+        } else {
+          // Si no coincide con el rol requerido, redirige a una página de acceso denegado o login
+          return this.router.createUrlTree(['/login']);
+        }
+      } else {
+        // Usuario autenticado, pero sin uno de los roles permitidos (1 o 3)
+        return this.router.createUrlTree(['/login']);
+      }
     }
 
-    // Redirige al login si el rol no es permitido
-    this.router.navigate(['/login']);
-    return false;
+    // Usuario no autenticado
+    return this.router.createUrlTree(['/login']);
   }
 }

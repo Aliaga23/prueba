@@ -1,0 +1,43 @@
+<!-- src/app/components/medicamento/medicamento.component.html -->
+<div class="container mx-auto p-4">
+    <h2 class="text-2xl font-bold mb-6">Gestión de Medicamentos</h2>
+
+    <!-- Formulario -->
+    <form (ngSubmit)="isEditing ? updateMedicamento() : createMedicamento()" class="bg-white p-6 rounded-lg shadow-md mb-8">
+        <div class="mb-4">
+            <label for="nombre" class="block text-gray-700 font-semibold mb-2">Nombre:</label>
+            <input type="text" [(ngModel)]="medicamento.nombre" name="nombre" required class="w-full p-2 border border-gray-300 rounded" />
+        </div>
+        <div class="mb-4">
+            <label for="descripcion" class="block text-gray-700 font-semibold mb-2">Descripción:</label>
+            <textarea [(ngModel)]="medicamento.descripcion" name="descripcion" required class="w-full p-2 border border-gray-300 rounded"></textarea>
+        </div>
+        <div class="flex space-x-4">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">{{ isEditing ? 'Actualizar' : 'Crear' }} Medicamento</button>
+            <button type="button" (click)="clearForm()" class="bg-gray-500 text-white px-4 py-2 rounded">Cancelar</button>
+        </div>
+    </form>
+
+    <!-- Tabla de Medicamentos -->
+    <table class="w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead class="bg-gray-200">
+            <tr>
+                <th class="py-2 px-4 text-left">ID</th>
+                <th class="py-2 px-4 text-left">Nombre</th>
+                <th class="py-2 px-4 text-left">Descripción</th>
+                <th class="py-2 px-4 text-left">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let medicamento of medicamentos" class="border-t">
+                <td class="py-2 px-4">{{ medicamento.id }}</td>
+                <td class="py-2 px-4">{{ medicamento.nombre }}</td>
+                <td class="py-2 px-4">{{ medicamento.descripcion }}</td>
+                <td class="py-2 px-4">
+                    <button (click)="editMedicamento(medicamento)" class="bg-yellow-500 text-white px-2 py-1 rounded mr-2">Editar</button>
+                    <button (click)="deleteMedicamento(medicamento.id!)" class="bg-red-500 text-white px-2 py-1 rounded">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

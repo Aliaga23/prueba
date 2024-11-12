@@ -1,0 +1,13 @@
+<div class="flex h-screen bg-gray-100">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Contenido Principal -->
+  <div class="flex-1">
+    <app-header></app-header> <!-- Agrega el Header aquí -->
+
+    <div class="p-6">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

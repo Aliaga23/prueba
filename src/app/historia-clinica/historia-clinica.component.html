@@ -1,0 +1,37 @@
+<!-- src/app/components/historia-clinica/historia-clinica.component.html -->
+<div class="container mt-5">
+    <h2 class="text-2xl font-semibold text-gray-700">Resumen de Historia Clínica</h2>
+  
+    <div *ngIf="historiaClinica.length">
+      <div class="my-4 p-4 bg-gray-100 rounded-lg shadow">
+        <h3 class="text-lg font-bold text-gray-700">Información del Paciente</h3>
+        <p><strong>Nombre:</strong> {{ historiaClinica[0]?.nombrePaciente }} {{ historiaClinica[0]?.apellidoPaciente }}</p>
+        <p><strong>ID Paciente:</strong> {{ historiaClinica[0]?.pacienteId }}</p>
+        <p><strong>ID Historia Clínica:</strong> {{ historiaClinica[0]?.historiaId }}</p>
+        <p><strong>Fecha de Creación:</strong> {{ historiaClinica[0]?.fechaCreacionHistoria | date: 'short' }}</p>
+      </div>
+  
+      <div *ngFor="let consulta of historiaClinica" class="my-4 p-4 bg-white rounded-lg shadow">
+        <h3 class="text-lg font-bold text-blue-600">Consulta Médica (ID: {{ consulta.consultaId }})</h3>
+        <p><strong>Fecha:</strong> {{ consulta.fechaConsulta | date: 'short' }}</p>
+        <p><strong>Diagnóstico:</strong> {{ consulta.diagnostico }}</p>
+        <p><strong>Tratamiento:</strong> {{ consulta.tratamiento }}</p>
+        <p><strong>Notas:</strong> {{ consulta.notasConsulta }}</p>
+  
+        <div class="mt-3">
+          <h4 class="font-semibold text-gray-700">Medicamentos Recetados</h4>
+          <p>{{ consulta.medicamentosReceta }}</p>
+        </div>
+  
+        <div class="mt-3">
+          <h4 class="font-semibold text-gray-700">Laboratorios</h4>
+          <p>{{ consulta.laboratorios }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="!historiaClinica.length" class="mt-4 text-gray-600">
+      <p>No hay datos disponibles para este paciente.</p>
+    </div>
+  </div>
+  

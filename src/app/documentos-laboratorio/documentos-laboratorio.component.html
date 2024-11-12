@@ -1,0 +1,46 @@
+<!-- src/app/components/documentos-laboratorio/documentos-laboratorio.component.html -->
+<div class="container">
+  <h2>Crear Documento de Laboratorio</h2>
+
+  <!-- Selección de Laboratorio -->
+  <div class="form-container">
+    <label for="laboratorioSelect">Seleccionar Laboratorio</label>
+    <select
+      id="laboratorioSelect"
+      [(ngModel)]="selectedLaboratorioId"
+      class="form-select"
+      required
+    >
+      <option *ngFor="let laboratorio of laboratorios" [value]="laboratorio.id">
+        {{ laboratorio.descripcion }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Subida del Documento -->
+  <div class="form-container" *ngIf="selectedLaboratorioId">
+    <form (ngSubmit)="createDocumento(fileInput)">
+      <label for="archivoInput">Subir Archivo</label>
+      <input
+        type="file"
+        id="archivoInput"
+        #fileInput
+        (change)="createDocumento($event)"
+        required
+      />
+
+      <!-- Fecha de Creación (Automática) -->
+      <div class="form-group">
+        <label>Fecha de Realización:</label>
+        <input
+          type="text"
+          [value]="fechaHoy | date: 'dd/MM/yyyy'"
+          class="form-control"
+          readonly
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Crear Documento</button>
+    </form>
+  </div>
+</div>

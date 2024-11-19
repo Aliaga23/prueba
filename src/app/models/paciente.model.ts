@@ -4,4 +4,6 @@ export interface Paciente {
   fechaNacimiento: string;
   genero: string;
   tipoSangre: string;
+  apellido:string;
+  nombre:string;
 }

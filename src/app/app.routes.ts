@@ -23,7 +23,7 @@ import { BitacoraComponent } from './bitacora/bitacora.component';
 import { ReporteComponent } from './reporte/reporte.component';
 import { EvaluacionMedicoComponent } from './evaluacion-medico/evaluacion-medico.component';
 import { SegurosComponent } from './seguros/seguros.component';
-
+import { MetodosDePagoComponent } from './metodos-de-pago/metodos-de-pago.component';
 // Definición de Rutas
 export const routes: Routes = [
   {
@@ -63,6 +63,8 @@ export const routes: Routes = [
       // Laboratorio e Historias Clínicas
       { path: 'docu-laboratorio', component: DocumentosLaboratorioComponent },
       { path: 'historial', component: HistoriaClinicaComponent },
+      { path: 'metodopago', component: MetodosDePagoComponent },
+
     ]
   },
   

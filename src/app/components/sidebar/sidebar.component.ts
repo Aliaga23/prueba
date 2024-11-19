@@ -57,6 +57,8 @@ export class SidebarComponent {
         { route: '/admin/bitacora', label: 'Bitácora', icon: 'fas fa-book' },
         { route: '/admin/reporte', label: 'Reportes', icon: 'fas fa-file-alt' },
         { route: '/admin/seguro', label: 'Seguros', icon: 'fas fa-briefcase-medical' },
+        { route: '/admin/metodopago', label: 'Metodos de Pago', icon: 'fas fa-briefcase-medical' },
+
       ],
     },
     {
@@ -70,7 +72,7 @@ export class SidebarComponent {
     },
     {
       name: 'laboratorioOpen',
-      label: 'Laboratorio e Historias Clínicas',
+      label: 'Historias Clínicas',
       icon: 'fas fa-flask',
       isOpen: false,
       links: [
